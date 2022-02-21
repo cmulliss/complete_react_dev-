@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 
 import CardList from './cardlist/CardList'
+import SearchBar from './searchbar/SearchBar'
 
 class App extends Component {
   state = {
-    monsters: []
+    monsters: [],
+    searchField: ''
   }
 
   componentDidMount() {
@@ -16,10 +18,16 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <CardList name='Cherry' />
-        {this.state.monsters.map((monster) => (
-          <h1 key={monster.id}>{monster.name}</h1>
-        ))}
+        <input
+          type='search'
+          placeholder='search monsters'
+          onChange={(e) => {
+            this.setState({ searchField: e.target.value })
+            console.log(this.state)
+          }}
+        />
+
+        <CardList monsters={this.state.monsters}></CardList>
       </div>
     )
   }
